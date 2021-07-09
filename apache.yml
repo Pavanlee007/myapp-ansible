@@ -1,18 +1,17 @@
 ---
-- hosts: webservers 
+- hosts: all 
   become: True
   tasks:
-    - name: Install packages
-      yum:
-        name: "httpd"
+    - name: Install apache
+      apt:
+        name: "apache2"
         state: "present"
     - name: Start Apache server
       service:
-        name: httpd
-        state: started
+        name: apache2
+        state: restarted
         enabled: True
     - name: Deploy static website
       copy:
         src: index.html
         dest: /var/www/html/
-...
